@@ -2,6 +2,9 @@
 
 This module implements deformable cell clusters for ESPResSo/object-in-fluid simulations. A cluster is represented as a collection of `OifCell` objects, where each cell is an elastic mesh-based object created from an `OifCellType`. The cluster layer adds initialization of multi-cell geometries, cell-cell interactions, deformation/relaxation procedures, contact-area analysis, VTK output, and JSON-based save/load support. :contentReference[oaicite:0]{index=0}
 
+## Acknowledgement
+This code is part of the work funded by the EU NextGenerationEU through the Recovery and Resilience Plan for Slovakia under the project 09I03-03-V04-00705.
+
 ## Core design
 
 The central class is `OifCluster`. It stores a cluster name, a list of cells, the initial cell positions, the expected number of contact areas, and parameters for the currently active cell-cell interactions. When initialized with existing cells, the base class checks that all cells are spherical and have the same radius. Empty clusters are also supported and can be populated later.
