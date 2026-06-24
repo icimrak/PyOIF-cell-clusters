@@ -24,6 +24,36 @@ Several subclasses create predefined cluster shapes by computing initial cell ce
 
 All predefined fixed-radius clusters require spherical cell meshes. Most geometries use the cell radius from `cell_type.resize[0]` and a user-specified `space` parameter to place cells initially separated by approximately `2 * radius + space`. :contentReference[oaicite:2]{index=2}
 
+## Solid cluster mesh files
+
+The `solid-clusters.zip` archive contains pre-generated mesh files for several cell-cluster geometries. Each mesh is stored as a pair of plain text files:
+
+- `*nodes.dat`: one 3D point per line, stored as `x y z`.
+- `*triangles.dat`: one triangular face per line, stored as three node indices.
+
+Despite the “solid cluster” naming, these files are surface triangular meshes rather than volumetric tetrahedral-element meshes: the connectivity files contain triples of node IDs, not quadruples. They are therefore suitable for representing the external surface of a compact cluster shape in the same mesh format used by `OifCellType`/`Mesh`, where nodes and triangular facets define an elastic object.
+
+The archive includes mesh resolutions for several predefined cluster shapes:
+
+| Shape family | Available variants |
+|---|---|
+| Two-cell cluster | thicker: 142, 325 nodes; thinner: 151, 284 nodes |
+| Three-in-line cluster | thicker: 210/215-named, 437 nodes; thinner: 222/227-named, 335/340-named nodes |
+| Four-in-line cluster | thicker: 386, 680 nodes; thinner: 287, 517 nodes |
+| Tetrahedral/perpendicular cluster | 389 and 561 nodes |
+
+The tetrahedral/perpendicular cluster files are:
+
+- `tetra-perp-solid-cluster-389nodes.dat`
+- `tetra-perp-solid-cluster-389triangles.dat`
+- `tetra-perp-solid-cluster-561nodes.dat`
+- `tetra-perp-solid-cluster-561triangles.dat`
+
+These meshes describe a compact four-cell-like cluster with three outer lobes arranged approximately around one central/perpendicular direction. The first four nodes in the 389-node version define extremal anchor-like positions near `(0, 0.6, 0)`, `(1.6, 0, 0)`, `(0, 0, 1.6)`, and `(0, -1.6, 0)`, giving the mesh an asymmetric tetrahedral/perpendicular layout. The 389-node version has 2,621 triangular facets, while the 561-node version has 4,138 triangular facets, providing a finer surface discretization.
+
+These solid-cluster meshes can be used when the desired object is a single deformable cluster-shaped body rather than a cluster assembled from several separate `OifCell` objects. In contrast, the `OifCluster` classes build clusters as groups of individual cells coupled by non-bonded cell-cell interactions, adhesion, collision, deformation, and contact-area analysis. :contentReference[oaicite:0]{index=0}
+
+
 ## Cell-cell and boundary interactions
 
 `OifCluster` supports several interaction types between cells:
